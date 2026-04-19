@@ -298,6 +298,8 @@ EGLL D255G D259K WOD D100H CPT KENET UNZIB D149T BHD57 LESLU
     
 ## 🚀 Roadmap
 - [x] Add usage videos
+- [ ] The required timing changes could be applied to the calibration file commands by the script.
+- [ ] The raw calibration file could be parsed and updated automatically removing the 'Annotate' step
 - [ ] Add a popup message or a kneepad note or similar to name waypoints as the `from-to` selector progresses.
       This may require an app such as Spad.Next monitor the next waypoint id.
 - [ ] Add a warning as the last waypoint becomes the active destination
