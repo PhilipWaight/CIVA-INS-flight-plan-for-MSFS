@@ -74,7 +74,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 - **Smart Parsing**: Automatically extracts Latitude, Longitude, and Elevation from MSFS XML flight plans.
 - **CIVA Logic**: Coordinate formatting (CDDMMS / CDDDMMS) and rounds seconds to the INS-required single digit.
-- **Clipboard Cycler**: Uses a global hotkey (`Ctrl + Shift + N`) to feed macro legs into the clipboard 
+- **Clipboard Cycler**: Uses a global hotkey (`F9`) to feed macro legs into the clipboard 
 					during flight setup. Paste into the leg templates and save for in-flight use.							
 - **On-Screen Feedback**: Includes audio beeps and console counters to track your progress while tabbed into the sim.
 - **Custom Calibration**: Uses an external `.txt` file in macro format for mouse coordinates, 
@@ -106,6 +106,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 	2. In MSFS, zoomed to the CIVA unit, you can run the provided calibration template `Shift+Ctrl+0` 
 		if you have a 4K  monitor to show mouse moves and clicks. 
+        [See the project Videos\CalibrationTest.mkv video]
 		Once you have recorded your own calibration, you can check your result using this hotkey.
 
 4. Calibrate: 
@@ -124,7 +125,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 	   a unique marker character should be keyed to identify this button.
 	   eg., W for waypoint selector, I for insert, and 0-9.
 	   The output will appear as:
-	   
+	    ```
 		W<mm>(1499,657,456)<#>
 		<mlbd><#>
 		<wx>(456,0)<#>
@@ -137,7 +138,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 		<mlbd><#>
 		<wx>(200,0)<#>
 		<mlbu><#> ...	   
-	   
+	    ```
 	   The project file and macro includes all the buttons in anticipation of future use.
 	   
 	4. The 2,4,6,8 buttons provide the cardinal directions N, W, S, E and only need 
@@ -191,12 +192,14 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 	3.  The `<wx>(567,0)<#>` wait first argument and <mm> last argument lines  
 	    need to be edited to a preferred wait time. 200msec
 	    is recommended but 100 might provide a faster and still reliable result.
+            ```
 			<#> insert
 			<wx>(200,0)<#>
 			<mm>(1873,497,200)<#>
 			<mlbd><#>
 			<wx>(200,0)<#>
 			<mlbu><#>	   
+            ```
 
 	4.  Other commands 'could' be added to this file as long as the mouse position at button push 
 	    is preserved.
@@ -205,6 +208,8 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 
 ## 📖 How to Use for each flight plan
+
+[See project file 'Videos\FlightPlanProcess.mkv' for an example of running steps 1-5]
 
 1.  Run the run_civa.bat file from the project folder containing all the project files
     including your version of CIVAinsCalibration.txt.
@@ -217,8 +222,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
     1.  Tab into Macro Commander and click on macro `Leg 1`. Delete any existing macro content.
 
-	2.  Press `Ctrl + Shift + N` to copy the first leg. If this conflicts with existing shortcuts,
-	    alter in the script file. Note: This hotkey is created by `CIVA_flightplan.py`
+	2.  Press `F9` to copy the first leg. 
 
 	3.  Paste into your Macro Commander editor window of the leg number macro. 
 	    Click on the leg macro list in the top window to transfer the contents and `Save`.
@@ -268,9 +272,11 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
     This departure was used by Concorde as it allowed acceleration to supersonic flight phase over 
     the Bristol Channel. The CPT3F departure has been expanded in the "Selected Route" section 
     of the Simbrief edit page, although the VOR navigation departure is more interesting and typical. 
+        ```
         EGLL D255G D259K WOD D100H CPT KENET UNZIB D149T BHD57 LESLU 
         5041N01500W 5050N02000W 5030N03000W 4916N04000W 4703N05000W 4610N05300W 4414N06000W 
         4246N06500W 4200N06700W 4044N06955W 4027N07230W CAMRN KJFK
+        ```
     This should be placed in the flight plans Simbrief export folder.
 
 ## ⚖️ License
