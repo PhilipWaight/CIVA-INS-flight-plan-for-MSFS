@@ -156,7 +156,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 >      sequence to prevent a stray mouse wheel movement changing the screen view.
 >      This is the reason the 'waypoint select' button contains multiple clicks
 >      but every other button has only 1 click.
->      You will need to follow this rule when recording the scroll. In testing
+>      You will need to follow this rule when recording the scroll. In testing,
 >      a single <mwheel_f> command worked well. If your mouse wheel has notched scroll option, this makes it easier.
 
 	6. Prerequisites for manual waypoint entry are:
@@ -169,7 +169,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 		4. `Waypoint/DME` selector set to zero, although only a requirement for flight plan load.
 
-	7. `Record` the macro with content as described in point 3: 
+	7. `Record` the macro with content as described in point 4.iii: 
 		Right click on the calibration macro line in the top macro list and click `record macro`. 
 		In the dialogue steps, `desktop macro`,
 		keyboard, mouse, absolute coordinates, UNCHECK record mouse movements to ensure
@@ -189,14 +189,15 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 	1.  The calibration macro file needs to be annotated with '<#> waypoint selector' .. 
         '<#> insert', '<#> 0' etc comments to denote the next block of wait , mouse move 
-        and mouse click commands. This has to be a manual edit to replace each marker character. 
-        Check the txt file for format.
+        and mouse click commands. This is a manual edit to replace each marker character. 
+        Check the `CIVAinsCalibration.txt` file for format.
         This step can be performed in the editor window, with convenient double click 
         on a command to check the arguments.
 
-	2.  The parsing of this file uses comment lines as delimiters, so avoid extraneous comments beyond the header.
+	2.  The parsing of this file uses the key identity comment lines as delimiters, 
+        so avoid extraneous comments beyond the header.
 
-	3.  The `<wx>(567,0)<#>` wait first argument and `<mm>` last argument lines  
+	3.  The `<wx>([wait_time],0)<#>` wait  `<mm>(2349,968,[wait_time])<#>` mouse move commands  
 	    need to be edited to a preferred wait time. 200msec
 	    is recommended but 100 might provide a faster and still reliable result.
             ```
@@ -254,7 +255,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 	3.  Set the CIVA view, ensure waypoint selector is 0, data selector is `WayPt`. 
 	    Hit the hotkey `Ctrl + Shift + 2` and watch  the points load.
-	    As the points load a message box appears to show the first waypoint name.
+	    A message box appears to show each waypoint name, position and elevation.
 
 	4.  CLick `Wy Pt Chg` button and select 0 to 1. The From-To should change.
 
@@ -293,6 +294,13 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
         ```
 
     This should be placed in the flight plans Simbrief export folder.
+    
+## 🚀 Roadmap
+- [x] Add usage videos
+- [ ] Add a popup message or a kneepad note or similar to name waypoints as the `from-to` selector progresses.
+      This may require an app such as Spad.Next monitor the next waypoint id.
+- [ ] Add a warning as the last waypoint is the active destination
+
 
 ## ⚖️ License
 
