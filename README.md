@@ -1,6 +1,6 @@
 # CIVA INS Flight Plan Processor for MSFS
 
-A Python-based utility for **MSFS 2020/2024** that automates the entry of flight plan waypoints into the **CIVA INS** navigation unit,
+CIVA_flightplan.py is a Python-based utility for **MSFS 2020/2024** that automates the entry of flight plan waypoints into the **CIVA INS** navigation unit,
 specifically for the **DC Designs Concorde**.  
 It parses standard `.pln` files, chunks them into 7-9 waypoint legs, and generates mouse-macro sequences for **Macro Commander**.
 
@@ -24,8 +24,8 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 ## ⚠️ Notes and Warnings
 
 1.  Clipboard Usage: The script uses a global hotkey to feed data into your clipboard. 
-    If you experience hotkey conflicts or prefer manual handling, press ESC in the CMD window 
-    to exit the cycler. You can always find the raw macro text files in the /legs folder.
+    If you prefer manual handling, press ESC in the CMD window 
+    to exit the cycler. You can always find the raw macro text files in the {flight plan}/legs folder.
     
 2.  Emergency Stop: A 9-waypoint leg will contain over 1,000 lines of commands. 
     
@@ -37,7 +37,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
     
 3.  Target Focus: Output is targeted specifically at the MSFS process using the `<if_win>` and
     `<win_activate>` **Macro Commander** commands, included in each of the leg macros. 
-    The macro should exit if the simulator is not running and 
+    The macro should exit if the simulator is not running. It 
     forces it to be the active, focused window before running the body of the commands.
     You should ensure MSFS is running full screen and maximised.
     
@@ -102,11 +102,14 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 3. Start MSFS and Macro Commander
 
 	1. Open the `CIVAkeypush.macro` macro group file and note the individual macros named
-		leg1 to 7, and calibration.
+		`leg 1` to 7, and `calibration`.
 
 	2. In MSFS, zoomed to the CIVA unit, you can run the provided calibration template `Shift+Ctrl+0` 
 		if you have a 4K  monitor to show mouse moves and clicks. 
-        [See the project Videos\CalibrationTest.mkv video]
+        
+        [!TIP]
+        See the project: Videos\CalibrationTest.mkv video.
+        
 		Once you have recorded your own calibration, you can check your result using this hotkey.
 
 4. Calibrate: 
@@ -209,7 +212,8 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 ## 📖 How to Use for each flight plan
 
-[See project file 'Videos\FlightPlanProcess.mkv' for an example of running steps 1-5]
+[!TIP]
+See project file 'Videos\FlightPlanProcess.mkv' for an example of running steps 1-5
 
 1.  Run the run_civa.bat file from the project folder containing all the project files
     including your version of CIVAinsCalibration.txt.
