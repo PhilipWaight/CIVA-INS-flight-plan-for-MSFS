@@ -303,6 +303,8 @@ EGLL D255G D259K WOD D100H CPT KENET UNZIB D149T BHD57 LESLU
 - [ ] The 9 waypoint entry has so far been very reliable in testing. A single waypoint entry option could be considered.
 - [ ] An option to push a set of named waypoints on the fly for a diversion would be appealing, with a lookup to find the 
       coordinates. This could involve some interaction with the EFB.
+- [ ] The Macro Commander Pro version has an `<Include>` text file option which would simplify the setup of each flight plan
+      considerably. Include replaces the macro content with the file commands and runs them.
 
 
 ## ⚖️ License
