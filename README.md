@@ -104,11 +104,11 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 	1. Open the `CIVAkeypush.macro` macro group file and note the individual macros named
 		`leg 1` to 7, and `calibration`.
 
-	2. In MSFS, zoomed to the CIVA unit, you can run the provided calibration template `Shift+Ctrl+0` 
+    2.  In MSFS, zoomed to the CIVA unit, you can run the provided calibration template `Shift+Ctrl+0` 
 		if you have a 4K  monitor to show mouse moves and clicks. 
         
-        [!TIP]
-        See the project: Videos\CalibrationTest.mkv video.
+        > [!TIP]
+        > See the project: Videos\CalibrationTest.mkv video.
         
 		Once you have recorded your own calibration, you can check your result using this hotkey.
 
@@ -212,8 +212,8 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 ## 📖 How to Use for each flight plan
 
-[!TIP]
-See project file 'Videos\FlightPlanProcess.mkv' for an example of running steps 1-5
+> [!TIP]
+> See project file 'Videos\FlightPlanProcess.mkv' for an example of running steps 1-5
 
 1.  Run the run_civa.bat file from the project folder containing all the project files
     including your version of CIVAinsCalibration.txt.
