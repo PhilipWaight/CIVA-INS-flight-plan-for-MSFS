@@ -107,8 +107,8 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
     2.  In MSFS, zoomed to the CIVA unit, you can run the provided calibration template `Shift+Ctrl+0` 
 		if you have a 4K  monitor to show mouse moves and clicks. 
         
-        > [!TIP]
-        > See the project: Videos\CalibrationTest.mkv video.
+> [!TIP]
+> See the project: Videos\CalibrationTest.mkv video.
         
 		Once you have recorded your own calibration, you can check your result using this hotkey.
 
