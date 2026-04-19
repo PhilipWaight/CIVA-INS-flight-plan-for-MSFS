@@ -85,7 +85,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 - **Macro Commander** (Basic-free or Pro current version 2.8.5) running during initial setup and during flight to 
    action each CIVA load. Suggest use of the download option from the web site and install, rather than
    the Microsoft Store version, as the Store version  hasnt been tested.
-   [Download from Website](https://www.macro-commander.com/)
+   [Download Macro Commander Basic 2.8.5 from Website](https://www.macro-commander.com/download)
 - **External Libraries**: `pyperclip`, `keyboard`
 - **CIVA_flightplan.py** script running during flight plan setup only from a CMD window
 - **Fplans folder** where you normally direct generated flight plans from **Simbrief**, or similar.
