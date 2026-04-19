@@ -9,9 +9,10 @@ while preserving the structure of departure , arrival and intermediate waypoints
 If the Concorde supported EFB plan import from the cockpit, this would be sufficient.
 
 As this aircraft requires flight plan loading from the world map, the scope extended to emulate a co-pilot 
-or flight engineer keying the required waypoints manually. This required the use of a macro record
-and playback tool as there are insufficient LVars available to achieve this using an external controls and interface
-tool such as **Spad.Next**. 
+or flight engineer keying the required waypoints manually. Entry of a single waypoint is 17 keystrokes
+on the CIVA unit, thus requiring the use of a macro playback tool. 
+[There are insufficient LVars available to achieve this using an external controls and interface
+tool such as **Spad.Next**.]
 A calibration macro concept means the button positions can be recorded once for your preferred view and monitor 
 and saved for use with each new flight plan.
 
@@ -150,8 +151,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 	   recording once.
 
 > [!NOTE] 
-
->   5. The effective use of the rotary waypoint selector requires
+>   v. The effective use of the rotary waypoint selector requires
 >      a {marker key}{move to selector}{mouse click}{mouse wheel forward}{mouse click}
 >      sequence to prevent a stray mouse wheel movement changing the screen view.
 >      This is the reason the 'waypoint select' button contains multiple clicks
