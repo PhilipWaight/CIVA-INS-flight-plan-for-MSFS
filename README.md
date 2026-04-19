@@ -269,7 +269,7 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 1.  CIVA_flightplan.py: The main Python logic.
 
-2.  CIVAkeypush.macro leg and calibration templates.
+2.  CIVAkeypush.macros: Binary file containing leg and calibration templates.
 
 3.  CIVAinsCalibration.txt: Sample exported macro file for button mouse coordinates and timings.
 
@@ -279,7 +279,9 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 
 6.  LICENSE.txt
 
-7.  `tests\EGLLKJFK_MFS_NoProc_18Apr26.pln`: 
+7.  `Videos` folder for setup and use assistance.
+
+8.  `tests\EGLLKJFK_MFS_NoProc_18Apr26.pln`: 
 
     A sample classic **Simbrief** flight plan used for testing.
     Modified as some original waypoints no longer exist. 
