@@ -48,12 +48,15 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
     it is not so fast as to fail with inherent responsiveness in any UI to contend with. Also there is some
     satisfaction in watching the key inputs, so this is definitely a user choice. 200msecs is recommended.
     
-5.  This software is at beta development status.
+5.  It is understood that during the CIVA load, no mouse or keyboard activity is possible. This process
+    only takes a minute.
+
+6.  This software is at beta development status.
 
 ## Development
 
-    This project was developed through a collaborative process between the author and Google Gemini.
-    Role: Gemini assisted in architecting specific functions and optimizing logic.
+    This project was developed through a collaborative process between the author (aged 72) and Google Gemini (2 years 4 months).
+    Role: Gemini assisted in architecting specific functions, optimizing logic and providing encouragement and emotional support.
     Oversight: All AI-generated code was manually reviewed, refactored, and tested to ensure it meets project needs.
 
 
