@@ -5,18 +5,19 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import re
 # glob for targeted cleanup of previous plan macros from 
-# flightplan\LEGS folder
+# flightplan\PHASES folder
 import glob
-# clipboard cycler for legs macro files...
+# clipboard cycler for Phases macro files...
 import keyboard
 import pyperclip
 import time
 # facilitate clipboard actions with beep prompt
 import winsound
 
-__author__ = "Philip Waight with assistance from Gemini"
+__author__  = "Philip Waight"
+__ai__      =  "Gemini"
 __version__ = "1.0.0"
-__status__ = "Beta"  #  "Production", "Dev", "Beta"
+__status__  = "Beta"  #  "Production", "Dev", "Beta"
 
 
 """
@@ -42,6 +43,9 @@ def clean_filename(name):
     """Removes characters not allowed in Windows filenames."""
     return re.sub(r'[<>:"/\\|?*]', '', name).strip()
 
+def get_write_handle(path):
+    return open(path, 'w')
+
 def get_icao(wp_node):
     """Extracts the ICAOIdent text from a waypoint node."""
     icao_node = wp_node.find(".//ICAOIdent")
@@ -59,6 +63,38 @@ def get_global_icao(container, tag_name):
         # Otherwise return the text of the node itself (like DepartureID)
         return node.text
     return None
+
+# WPtablehdr = 
+def getMsgHeader ():
+  return (' <msg>(100,100, \"<html>\n'
+              '<table style=%_vQuoteChar%width: 100%; max-width: 300px; font-family: Verdana, sans-serif;  \n'
+              'border-collapse: collapse; border: 1px solid #ccc; border-radius: 8px; \n'
+              'table-layout: fixed; overflow: hidden; display: table;%_vQuoteChar%> \n'
+              '<thead>\n'
+              '<tr style=%_vQuoteChar%background-color: #2d3436; color: #ffffff;%_vQuoteChar%>\n'
+              '<th style=%_vQuoteChar%padding: 12px; text-align: left; width: 40%; font-weight: bold;%_vQuoteChar%>Id</th>\n'
+              '<th style=%_vQuoteChar%padding: 12px; text-align: left; width: 60%; font-weight: bold;%_vQuoteChar%>Name</th>\n'
+              '<th style=%_vQuoteChar%padding: 12px; text-align: left; width: 40%; font-weight: bold;%_vQuoteChar%>Altitude</th>\n'
+              '</tr>\n'
+              '</thead>\n'
+              '<tbody style=%_vQuoteChar%background-color: #f9f9f9;%_vQuoteChar%>\n')
+
+# WPtablerow = 
+def getMsgRow(ID, Name, Elev_ft):
+    return f"""
+    <tr>
+      <td style=%_vQuoteChar%padding: 8px 10px; border-bottom: 1px solid #eee; color: #333;%_vQuoteChar%>{ID}</td>
+      <td style=%_vQuoteChar%padding: 8px 10px; border-bottom: 1px solid #eee; color: #333;%_vQuoteChar%>{Name}</td>
+      <td style=%_vQuoteChar%padding: 8px 10px; border-bottom: 1px solid #eee; color: #333;%_vQuoteChar%>{Elev_ft}</td>
+    </tr>
+    """
+
+
+# WPtableFooter = 
+def getMsgFooter ():
+  return ('</tbody>\n'
+          '</table>\",\"CIVA Waypoints\",1,0,0,0, 25%,40%)\n')
+
 
 def process_flight_plan():
     global target_exe
@@ -87,8 +123,9 @@ def process_flight_plan():
     if not source_path: 
         return
         
-    include_icao = messagebox.askyesno("Flightplan Filename Option", 
-        "Include Departure/Arrival ICAOs in the filename?\n\nFormat: root_FROM_TO_plnXX.pln")
+    include_icao = True 
+        # messagebox.askyesno("Flightplan Filename Option", 
+        # "Include Departure/Arrival ICAOs in the filename?\n\nFormat: root_FROM_TO_plnXX.pln")
 
     try:
         # Use a parser that preserves some structure but we will re-indent
@@ -120,12 +157,12 @@ def process_flight_plan():
 
         source_dir = os.path.dirname(source_path)
         base_name, ext = os.path.splitext(os.path.basename(source_path))
-        target_dir = os.path.join(source_dir, "legs")
+        target_dir = os.path.join(source_dir, "PHASES")
          
         os.makedirs(target_dir, exist_ok=True)
-        # Clean up only the specific CIVA leg files from previous runs
-        # This looks for any file matching "CIVA_Leg_###.txt"
-        old_civa_files = glob.glob(os.path.join(target_dir, "CIVA_Leg_[0-9][0-9][0-9].txt"))
+        # Clean up only the specific CIVA Phase files from previous runs
+        # This looks for any file matching "CIVA_Phase_###.txt"
+        old_civa_files = glob.glob(os.path.join(target_dir, "CIVA_Phase_[0-9][0-9][0-9].txt"))
         for f_path in old_civa_files:
             try:
                 os.remove(f_path)
@@ -136,23 +173,26 @@ def process_flight_plan():
         # (Assumes parse_civa_calibration function is defined above)
         calibration_data = parse_civa_calibration(calibration_path)
 
-        chunk_size = 7
+        chunk_size = 9
         total_chunks = (len(waypoint_nodes) + chunk_size - 1) // chunk_size
         
+        # Process each civa_set
         for i in range(0, len(waypoint_nodes), chunk_size):
-            leg_num = (i // chunk_size) + 1
+            phase_num = (i // chunk_size) + 1
             current_chunk = waypoint_nodes[i : i + chunk_size]
             
-            # Name logic per your request
-            from_name = dep_id if leg_num == 1 else get_icao(current_chunk[0])
-            to_name = dest_id if leg_num == total_chunks else get_icao(current_chunk[-1])
+            # Name logic 
+            from_name = dep_id if phase_num == 1 else get_icao(current_chunk[0])
+            to_name = dest_id if phase_num == total_chunks else get_icao(current_chunk[-1])
             
             from_clean, to_clean = clean_filename(from_name), clean_filename(to_name)
             
+            num_waypoints_in_this_phase = len(current_chunk)
+            
             if include_icao:
-                new_filename = f"{base_name}_{from_clean}_{to_clean}_pln{leg_num:03d}{ext}"
+                new_filename = f"{base_name}_{from_clean}_{to_clean}_pln{phase_num:03d}{ext}"
             else:
-                new_filename = f"{base_name}_pln{leg_num:03d}{ext}"
+                new_filename = f"{base_name}_pln{phase_num:03d}{ext}"
             
             output_path = os.path.join(target_dir, new_filename)
             
@@ -171,7 +211,7 @@ def process_flight_plan():
                 new_fp.append(ET.fromstring(ET.tostring(node)))
 
             # Write current_chunk <WorldPosition> tags
-            save_leg_macro(leg_num, current_chunk, calibration_data, target_dir)
+            save_phase_macro(new_filename, phase_num, current_chunk, calibration_data, target_dir)
             
             # Apply clean indentation (standardized human readable)
             if hasattr(ET, 'indent'):
@@ -182,22 +222,29 @@ def process_flight_plan():
                 f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
                 ET.ElementTree(new_root).write(f, encoding="utf-8", xml_declaration=False)
             
-            print(f"Leg {leg_num:03d}: {from_name} -> {to_name}")
+            print(f"Phase {phase_num:03d}: WyPt Count {num_waypoints_in_this_phase}   {from_name} -> {to_name}")
 
-        messagebox.showinfo("Success", f"Split into {total_chunks} legs.\nFiles saved to /legs folder.")
+        messagebox.showinfo("Success", f"Split into {total_chunks} phases.\nFiles saved to /phases folder.")
  
-        # Collect all generated leg file paths for clipboard output
-        generated_legs = []
+        # Collect all generated Phase file paths for clipboard output
+        generated_phases = []
         for j in range(1, total_chunks + 1):
             # Matches your naming logic
-            pattern = f"CIVA_Leg_{j:03d}.txt"
-            generated_legs.append(os.path.join(target_dir, pattern))
+            pattern = f"CIVA_Phase_{j:03d}.txt"
+            generated_phases.append(os.path.join(target_dir, pattern))
             
-        print("Default hotkey to copy next leg to clipbboard is F9.")
+        # Collect all Waypoint MSG file paths for clipboard output
+        generated_WPmsg = []
+        for j in range(1, total_chunks + 1):
+            # Matches your naming logic
+            pattern = f"CIVA_Msg_{j:03d}.txt"
+            generated_WPmsg.append(os.path.join(target_dir, pattern))            
+            
+        print("Default hotkey to copy next phase to clipbboard is F9.")
         choice = input("Press ENTER to keep F9, or type a new key (e.g. f11): ").strip().lower()
         chosen_key = choice if choice else "f9"
             
-        start_clipboard_cycler(generated_legs, chosen_key)
+        start_clipboard_cycler(generated_phases, generated_WPmsg, chosen_key)
  
     except Exception as e:
         messagebox.showerror("Error", f"Processing failed: {e}")
@@ -240,21 +287,32 @@ def parse_civa_calibration(file_path):
         return {}
 
 
-def save_leg_macro(leg_num, current_chunk, calibration_data, target_dir):
+def save_phase_macro (new_filename, phase_num, current_chunk, calibration_data, target_dir):
     """
     current_chunk: A list of ElementTree nodes (<ATCWaypoint>)
-    leg_num: The sequential number of the leg (1, 2, 3...)
+    phase_num: The sequential number of the phase (1, 2, 3...)
     """
-    filename = f"CIVA_Leg_{leg_num:03d}.txt"
+    filename = f"CIVA_Phase_{phase_num:03d}.txt"
     file_path = os.path.join(target_dir, filename)
     
     with open(file_path, 'w') as f:
-        f.write(f"<#> CIVA AUTO-LOADER LEG {leg_num:03d}\n")
+        # record equivalent flight plan file
+        f.write(f"<#> For {new_filename}\n")        
+        f.write(f"<#> CIVA AUTO-LOADER PHASE {phase_num:03d}\n")
         # Ensure macro output is directed to the target MSFS app        
         f.write(f'<if_win>("Executable:{target_exe}","OPEN")\n')
         f.write(f'  <win_activate>("Executable:{target_exe}")\n')
+        
+        #Output a <msg> display file of waypoint, wp_num for each Phase
+        WPmsg_filename = f"CIVA_Msg_{phase_num:03d}.txt"
+        WPmsg_path = os.path.join(target_dir, WPmsg_filename)  
+        WPh = get_write_handle(WPmsg_path)
+        WPh.write(getMsgHeader())
+  
+        # Set data selector to WAY PT
+        reset_data_selector(calibration_data, f)
 
-        for wp_node in current_chunk:
+        for wpix, wp_node in enumerate(current_chunk):
             # Find the text inside the <WorldPosition> tag for this node
             # This handles the namespace if present or simple tags if not
             world_pos_string = wp_node.findtext("WorldPosition")
@@ -262,16 +320,27 @@ def save_leg_macro(leg_num, current_chunk, calibration_data, target_dir):
             
             if world_pos_string:
                 # Passes the string "N20° 42' 38.02",W68° 7' 31.01",+039000.00"
-                write_waypoint_macro(waypoint_id, world_pos_string, calibration_data, f)
+                elev_ft = write_waypoint_macro(waypoint_id, world_pos_string, calibration_data, f)
+                if elev_ft:
+                    WPh.write(getMsgRow(wpix + 1,waypoint_id, elev_ft))
             else:
-                f.write(f"<#> WARNING: No WorldPosition found for a waypoint in Leg {leg_num}\n")
-                
-        f.write(f"<#> End of Leg {leg_num:03d}\n")
+                print(f"WARNING: No WorldPosition found for '{waypoint_id}' in Phase {phase_num}")
+                f.write(f"<#> WARNING: No WorldPosition found for '{waypoint_id}' in Phase {phase_num}\n")
+
+        WPh.write(getMsgFooter())
+        WPh.close()
+
+        # Set from to selector to 0-1
+        #push_button("wy pt chg")
+        #push_button("0")
+        #push_button("1")        
+        #push_button("insert")
+        
+        f.write(f"<#> End of Phase {phase_num:03d}\n")
         # Close Directed macro output check        
         f.write("<else>\n")
         f.write(f'  <msg>(500,500,"Error:Cant find {target_exe} window","%_vRunningMacroName%",1,0,0,1,33%,33%)\n')
         f.write("<endif>\n")        
-
 
 def write_waypoint_macro(waypoint_id, world_pos_tag, calibration_data, out_file):
     """
@@ -279,7 +348,9 @@ def write_waypoint_macro(waypoint_id, world_pos_tag, calibration_data, out_file)
     Sequence: {waypoint selector}{insert}{longitude}{insert}{latitude}{insert}
     """
     # Regex for N38° 44' 55.31",W90° 22' 12.09",+000617.00
-    coord_pattern = r"([NS])(\d+)°\s*(\d+)'\s*(\d+\.?\d*)\",([EW])(\d+)°\s*(\d+)'\s*(\d+\.?\d*)\""
+    # Added elev extract: ,[-+]?0*(\d+\.?\d*)
+    coord_pattern = r"([NS])(\d+)°\s*(\d+)'\s*(\d+\.?\d*)\",([EW])(\d+)°\s*(\d+)'\s*(\d+\.?\d*)\",[-+]?0*(\d+)\.?\d*"
+    
     # add to coord pattern to retrieve elevation... ,\+?(-?\d+\.?\d*)
     match = re.search(coord_pattern, world_pos_tag)
     
@@ -287,7 +358,7 @@ def write_waypoint_macro(waypoint_id, world_pos_tag, calibration_data, out_file)
         out_file.write(f"<#> ERROR: Invalid coordinate format: {world_pos_tag}\n")
         return
 
-    lat_card, lat_d, lat_m, lat_s, lon_card, lon_d, lon_m, lon_s = match.groups()
+    lat_card, lat_d, lat_m, lat_s, lon_card, lon_d, lon_m, lon_s, elev_ft = match.groups()
 
     # Cardinal Mapping: N=2, S=8, E=6, W=4
     card_map = {'N': '2', 'S': '8', 'E': '6', 'W': '4'}
@@ -309,11 +380,18 @@ def write_waypoint_macro(waypoint_id, world_pos_tag, calibration_data, out_file)
             out_file.write(f"{line}\n")
 
     # --- START MACRO OUTPUT ---
+    # <msg>(-100,-100,"<HTML><BODY><h1>This is an EXAMPLE</h1>    
+ 
     out_file.write(f"<#> World pos tag: {world_pos_tag}\n")
-    out_file.write(f"<#> Waypoint Entry: {lat_card}{lat_d}{lat_m}{lat_s} / {lon_card}{lon_d}{lon_m}{lon_s}'\n")
+    out_file.write(f"<#> Waypoint Entry: {lat_card}{lat_d}{lat_m}{lat_s} / {lon_card}{lon_d}{lon_m}{lon_s} / Elevation: {elev_ft}'\n")
     out_file.write(f"<#> Encoded: '{lat_sequence}' / '{lon_sequence}'\n")
     # Write onscreen message indicating WP name and pos
-    out_file.write(f'<msg>(10,10, "WP: {waypoint_id} Pos: {world_pos_tag}", "World pos tag", 10, 10, 0, 20%, 10%)\n')
+    # World pos tag: N42° 0' 0.00",W67° 0' 0.00",+036000.00
+    # <msg>(100,100,"WP: EGLL Pos: N51° 28' 39.00 W0° 27' 41.00","World pos tag",0,10,0,0,20%,10%)
+    # clean tag.
+    out_tag = world_pos_tag.replace('"', '').rpartition(',')[0]
+
+    out_file.write(f'<msg>(100,100, "WP: {waypoint_id} Pos: {out_tag}", "World pos tag", 0, 10, 0, 0, 20%, 10%)\n')
  
     # 1. Increment Waypoint Selector
     push_button("waypoint selector")
@@ -331,18 +409,22 @@ def write_waypoint_macro(waypoint_id, world_pos_tag, calibration_data, out_file)
     # 4. Final confirmation
     push_button("insert")
 
+    out_file.write('<msgoff>\n')
     out_file.write("<#> End Waypoint Entry\n")
+    
+    return elev_ft
         
 
-def start_clipboard_cycler(leg_files, chosen_key):
+def start_clipboard_cycler(phase_files, WPmsg_files, chosen_key):
     state = {"index": 0}
-    total = len(leg_files)
+    stateMsg = {"index": 0}
+    total = len(phase_files)
 
     # Renamed to be generic
     def on_hotkey_pressed(event):
         if state["index"] < total:
             try:
-                file_path = leg_files[state["index"]]
+                file_path = phase_files[state["index"]]
                 with open(file_path, 'r') as f:
                     pyperclip.copy(f.read())
                 
@@ -352,8 +434,32 @@ def start_clipboard_cycler(leg_files, chosen_key):
             except Exception as e:
                 print(f"Error: {e}")
         else:
-            print("All legs completed! Press ESC to exit.")
-            winsound.Beep(600, 150)
+            # change color on CMD window:
+            if stateMsg["index"] = 0:
+                os.system('color 0A')
+                print("\n" + "="*50)            
+                print(" Starting waypoint details Message set (ESC to exit)")
+                print(f" Tab to Macro Commander macro edit window for 'Waypoints 1' \n and hit F9 to copy first file")             
+                print("\n" + "="*50)          
+
+            print("\n" + "="*50)
+            if stateMsg["index"] < total:
+                try:
+                    file_path = WPmsg_files[stateMsg["index"]]
+                    with open(file_path, 'r') as f:
+                        pyperclip.copy(f.read())
+                    
+                    stateMsg["index"] += 1
+                    print(f"-> [{stateMsg['index']}/{total}] COPIED: {os.path.basename(file_path)}")
+                    winsound.Beep(1000, 100)
+                except Exception as e:
+                    print(f"Error: {e}")
+            else:
+                print("All phases completed! Press ESC to exit.")
+                winsound.Beep(600, 150)
+                os.system('color 07')
+
+
 
     # Pass the variable 'chosen_key' here instead of a hardcoded string
     keyboard.on_press_key(chosen_key, on_hotkey_pressed)
@@ -361,7 +467,11 @@ def start_clipboard_cycler(leg_files, chosen_key):
     print("\n" + "="*50)
     print("      CIVA CLIPBOARD CYCLER ACTIVE")
     print(f" Hotkey: [ {chosen_key.upper()} ]") # Shows the user their choice
-    print(" [ ESC ] - Exit")
+    print(f" Set1: {total} WP files; Set2: {total} message files")
+    print(f" 1. Tab to Macro Commander macro edit window for 'phase 1' \n and hit F9 to copy first file")    
+    print(f" 2. Ctrl-v to paste first file and click on top macro list window to transfer edit.")             
+    print(f" 3. Click on 'phase 2' file in macro list window and repeat...")   
+    print(" [ ESC ] - Exit at any time")
     print("="*50)
 
     # The "Keep-Alive" loop
@@ -372,8 +482,48 @@ def start_clipboard_cycler(leg_files, chosen_key):
             time.sleep(0.2) # A longer sleep is fine and saves Windows resources
     finally:
         keyboard.unhook_all()
+        os.system('color 07')
         print("\n[ESC] detected. Hotkeys released.")
-        
+ 
+def reset_data_selector(calibration_data, out_file):
+    """
+    Forces the Data Selector to the WAY PT position.
+    Assumes dial starts somewhere near TEST or far right.
+    """
+    global_wait = "400"
+    coords = calibration_data.get("data selector")
+    if not coords:
+        return
+
+    out_file.write("<#> --- AUTOMATIC DATA SELECTOR RESET ---\n")
+    
+    # 1. Move to the dial
+    # (Extracting move line from your calibration array)
+    for line in coords:
+        if "<mm>" in line:
+            out_file.write(line + "\n")
+    # force focus on wheel
+    out_file.write("<mlbd><#>\n")
+    out_file.write("<wx>(200,0)<#>\n")
+    out_file.write("<mlbu><#>\n")
+    out_file.write("<wx>(200,0)<#>\n")
+
+    # 2. Force to far left (TK/GS) - 8 scrolls
+    for _ in range(8):
+        out_file.write("<mwheel_b><#>\n")
+        out_file.write(f"<wx>({global_wait},0)<#>\n")
+
+    # 3. Move 4 positions right to 'WAY PT'
+    for _ in range(4):
+        out_file.write("<mwheel_f><#>\n")
+        out_file.write(f"<wx>({global_wait},0)<#>\n")
+    # move away from selector    
+    out_file.write("<mm>(300,300)<#>\n")
+    
+    out_file.write("<#> --- SELECTOR SET TO WAY PT ---\n\n")
+ 
 
 if __name__ == "__main__":
     process_flight_plan()
+
+
