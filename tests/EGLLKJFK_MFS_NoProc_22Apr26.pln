@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SimBase.Document Type="AceXML" version="1,0">
+    <Descr>AceXML Document</Descr>
+    <FlightPlan.FlightPlan>
+        <Title>EGLL to KJFK</Title>
+        <FPType>IFR</FPType>
+        <RouteType>HighAlt</RouteType>
+        <CruisingAlt>6000.000</CruisingAlt>
+        <DepartureID>EGLL</DepartureID>
+        <DepartureLLA>N51° 28' 39.00",W0° 27' 41.00",+000083.00</DepartureLLA>
+        <DestinationID>KJFK</DestinationID>
+        <DestinationLLA>N40° 38' 23.74",W73° 46' 43.29",+000013.00</DestinationLLA>
+        <Descr>EGLL to KJFK created by SimBrief</Descr>
+        <DepartureName>Heathrow</DepartureName>
+        <DestinationName>John F Kennedy Intl</DestinationName>
+        <AppVersion>
+            <AppVersionMajor>11</AppVersionMajor>
+            <AppVersionBuild>282174</AppVersionBuild>
+        </AppVersion>
+        <ATCWaypoint id="EGLL">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N51° 28' 39.00",W0° 27' 41.00",+000083.00</WorldPosition>
+            <RunwayNumberFP>9</RunwayNumberFP>
+            <RunwayDesignatorFP>RIGHT</RunwayDesignatorFP>
+            <ICAO>
+                <ICAOIdent>EGLL</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="D255G">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N51° 27' 32.10",W0° 38' 51.08",+006000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>D255G</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="D259K">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N51° 27' 14.64",W0° 45' 17.54",+006000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>D259K</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="WOD">
+            <ATCWaypointType>NDB</ATCWaypointType>
+            <WorldPosition>N51° 27' 10.02",W0° 52' 43.68",+006000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>WOD</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="D100H">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N51° 28' 4.14",W1° 0' 35.43",+006000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>D100H</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="CPT">
+            <ATCWaypointType>VOR</ATCWaypointType>
+            <WorldPosition>N51° 29' 29.66",W1° 13' 10.89",+006000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>CPT</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="KENET">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N51° 31' 14.00",W1° 27' 18.00",+006000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>KENET</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="UNZIB">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N51° 29' 29.62",W1° 59' 20.96",+006000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>UNZIB</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="D149T">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N51° 26' 34.38",W2° 58' 50.67",+015000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>D149T</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="BHD57">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N51° 20' 49.00",W3° 26' 26.92",+028000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>BHD57</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="LESLU">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N51° 0' 0.00",W8° 0' 0.00",+028000.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>EG</ICAORegion>
+                <ICAOIdent>LESLU</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="5041N01500W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N50° 41' 0.00",W15° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>5041N01500W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="5050N02000W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N50° 50' 0.00",W20° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>5050N02000W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="H5030">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N50° 30' 0.00",W30° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>H5030</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="4916N04000W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N49° 16' 0.00",W40° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>4916N04000W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="4703N05000W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N47° 3' 0.00",W50° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>4703N05000W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="4610N05300W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N46° 10' 0.00",W53° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>4610N05300W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="4414N06000W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N44° 14' 0.00",W60° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>4414N06000W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="4246N06500W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N42° 46' 0.00",W65° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>4246N06500W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="42N067W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N42° 0' 0.00",W67° 0' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>42N067W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="4044N06955W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N40° 44' 0.00",W69° 55' 0.00",+050000.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>4044N06955W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="4027N07230W">
+            <ATCWaypointType>User</ATCWaypointType>
+            <WorldPosition>N40° 27' 0.00",W72° 30' 0.00",+049100.00</WorldPosition>
+            <ICAO>
+                <ICAOIdent>4027N07230W</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="CAMRN">
+            <ATCWaypointType>Intersection</ATCWaypointType>
+            <WorldPosition>N40° 1' 2.29",W73° 51' 39.81",+017600.00</WorldPosition>
+            <ICAO>
+                <ICAORegion>K6</ICAORegion>
+                <ICAOIdent>CAMRN</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+        <ATCWaypoint id="KJFK">
+            <ATCWaypointType>Airport</ATCWaypointType>
+            <WorldPosition>N40° 38' 23.74",W73° 46' 43.29",+000013.00</WorldPosition>
+            <RunwayNumberFP>13</RunwayNumberFP>
+            <RunwayDesignatorFP>LEFT</RunwayDesignatorFP>
+            <ICAO>
+                <ICAOIdent>KJFK</ICAOIdent>
+            </ICAO>
+        </ATCWaypoint>
+    </FlightPlan.FlightPlan>
+</SimBase.Document>
