@@ -1,4 +1,4 @@
-# CIVA INS Flight Plan Processor for MSFS
+# CIVA INS Flight Plan Automation for MSFS
 
 CIVA_flightplan.py is a Python-based utility for **MSFS 2020/2024** 
 that automates the entry of flight plan waypoints into the **CIVA INS** navigation unit,
@@ -103,8 +103,8 @@ Please read the "Notes and Warnings" and be prepared to familiarise yourself wit
 - **CIVA_flightplan.py** script running during flight plan setup only from a CMD window
 - **Fplans folder** where you normally direct generated flight plans from **Simbrief**, or similar.
                     A sub-folder, `\phases` will be created for the generated plans.
-- **Run as Administrator** The CMD window requires elevated execution to permit a global hotkey be available
-  in other applications. F9 (or user keyed alternative) is used to copy the next phase prior to pasting into Macro Commander.
+- **Run as Administrator** The CMD window requires elevated execution to permit a global hotkey availability
+  in other applications. F9 (or user keyed alternative) is used to copy the next phase prior to pasting into Macro Commander. Macro Commander may also need Administrator.
 - **MSFS** 
   The `Cockpit Interaction System` Flight Interface setting must be set to `Lock`. Single scroll on
   the waypoint selector fails if `Legacy` is used.
